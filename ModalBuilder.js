@@ -11,12 +11,12 @@ ALBA.ModalBuilder = function() {
 	 * Builds #tmpModal disposable modal on the fly
 	 * based on specific object passed
 	 * @param obj
-	 * @... {String} obj.modaltitle
+	 * @... {String} obj.modalTitle
 	 * @... {Array} obj.modalContent
 	 * @returns {boolean}
 	 */
 	function bm(obj) {
-		// we need obj.modaltitle and an obj.modalContent [an array] to build this properly
+		// we need obj.modalTitle and an obj.modalContent [an array] to build this properly
 		var $modal,
 			$modalDialog,
 			$modalContent,
@@ -28,7 +28,7 @@ ALBA.ModalBuilder = function() {
 			$modalContent=$('<div></div>').addClass('modal-content');
 			$modalHeader=$('<div></div>').addClass('modal-header').html(
 				'<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>' +
-				'<h4 class="modal-title">' + obj.modaltitle + '</h4>'
+				'<h4 class="modal-title">' + obj.modalTitle + '</h4>'
 			);
 			$modalContent.append($modalHeader);
 			for(var i=0; i<obj.modalContent.length; i++) {
