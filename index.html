@@ -1,0 +1,586 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<title>Bootstrap Modal Builder</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta name="description" content="Dynamic Bootstrap Modal Builder">
+	<meta name="author" content="Andrew Alba">
+
+	<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.6/css/bootstrap.min.css" media="screen"/>
+	<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.5.0/css/font-awesome.min.css" media="screen"/>
+	<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/prettify/r298/prettify.min.css" media="screen" />
+	<link href="assets/css/style.css" rel="stylesheet" type="text/css" media="screen"/>
+
+	<!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
+	<!--[if lt IE 9]>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+	<![endif]-->
+	<link rel="apple-touch-icon" href="assets/ico/apple-touch-icon.png">
+	<link rel="icon" href="assets/ico/favicon.ico">
+</head>
+<body>
+
+<nav class="navbar navbar-default">
+	<div class="container-fluid">
+		<div class="navbar-header">
+			<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+				<span class="sr-only">Toggle navigation</span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+			</button>
+			<a class="navbar-brand" href="/bootstrap-modal-builder/">Bootstrap Modal Builder v1.0.0</a>
+		</div>
+
+		<!-- Collect the nav links, forms, and other content for toggling -->
+		<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+			<ul class="nav navbar-nav">
+				<li><a data-scroll href="#home"><i class="fa fa-home"></i> Home</a></li>
+				<li><a data-scroll href="#howto"><i class="fa fa-file-code-o"></i> How To Use</a></li>
+				<li><a data-scroll href="#options"><i class="fa fa-cogs"></i> Options</a></li>
+				<li><a data-scroll href="#example"><i class="fa fa-code"></i> Examples</a></li>
+				<li><a href="https://github.com/andrewalba/bootstrap-modal-builder/issues" target="_blank"><i class="fa fa-commments-o"></i> Support</a></li>
+			</ul>
+		</div><!-- /.navbar-collapse -->
+	</div><!-- /.container-fluid -->
+</nav>
+
+<section id="home">
+	<div class="container">
+		<div class="jumbotron">
+			<h1>Bootstrap Modal Builder</h1>
+			<p>jQuery script that helps dynamically build temporary Bootstrap 3 modal windows.</p>
+			<p><a class="btn btn-primary btn-large" data-scroll href="#howto">Learn more <i class="fa fa-angle-double-right"></i></a></p>
+		</div>
+
+		<!-- three columns start -->
+		<div class="row">
+			<div class="col-xs-12 col-sm-4 frizzle">
+				<h2>Easy To Use</h2>
+				<p>This plugin is easy to use and features several options to allow you to customize it for your site. We have taken user input and developed this plugin to be as robust as possible.</p>
+				<p><a class="btn btn-info" data-scroll href="#options"><i class="fa fa-cogs"></i> Options</a></p>
+			</div>
+			<div class="col-xs-12 col-sm-4 frizzle">
+				<h2>Download</h2>
+				<p>You can download the code here or feel free to fork this project.</p>
+				<p><a class="btn btn-success" href="//github.com/andrewalba/jquery.showmessage/zipball/master"><i class="fa fa-download"></i> Download .zip</a>&nbsp;<a class="btn btn-success" href="//github.com/andrewalba/jquery.showmessage/tarball/master"><i class="fa fa-download"></i> Download .tar.gz</a></p>
+			</div>
+			<div class="col-xs-12 col-sm-4 frizzle">
+				<h2>Demo</h2>
+				<p>A first attempt at a jQuery plugin. This jQuery plugin was inspired by a similar effect seen on the Twitter.com site.</p>
+				<p><a class="btn btn-default" data-scroll href="#example"><i class="fa fa-check"></i> Try it</a></p>
+			</div>
+		</div>
+		<!-- three columns end -->
+	</div> <!-- /container -->
+</section>
+
+<section id="howto">
+	<div class="container">
+		<div class="row">
+			<div class="col-xs-12">
+				<h2 class="mecheer-orange">How To Use</h2>
+				<h3>1. Load jQuery, Twitter Bootstrap and include Bootstrap Modal Builder file</h3>
+				<p>To use Bootstrap Modal Builder, you’ll need to make sure you include jQuery 1.7+, Twitter Bootstrap 3.0+ and this Bootstrap Modal Builder script is included in your document.</p>
+				<pre class="pre-show prettyprint linenums">
+&lt;!--  jQuery 1.7+  --&gt;
+&lt;script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.min.js"&gt;&lt;/script&gt;
+&lt;!--  Twitter Bootstrap 3.0+  --&gt;
+&lt;script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.6/js/bootstrap.min.js"&gt;&lt;/script&gt;
+&lt;!--  Bootstrap Modal Builder  --&gt;
+&lt;script src="path/to/bootstrap-modal-builder.min.js"&gt;&lt;/script&gt;
+				</pre>
+				<h3>2. Start Building Your Modal Dynamically</h3>
+				<p>The script has two methods to help you build dynamic Bootstrap modals. One modal that constructs the modal and the other to help you construct form elements into a modal with a form.</p>
+				<pre class="pre-show prettyprint linenums">
+&lt;script type="text/javascript"&gt;
+$(function(){
+	// triggers dynamic modal on button with class hello-modal
+	$('.hello-modal').on('click', function(ev) {
+		ev.preventDefault();
+		// we need obj.modalTitle and an obj.modalContent [an array] to build this properly
+		var modalObj = {},
+		modalObj.modalTitle='Hello Modal',
+		$modalBody=$('&lt;div&gt;&lt;/div&gt;').addClass('modal-body'),
+		$modalFooter=$('&lt;div&gt;&lt;/div&gt;').addClass('modal-footer').html('&lt;button type="button" class="btn btn-link" data-dismiss="modal"&gt;&lt;i class="fa fa-times"&gt;&lt;/i&gt; Close&lt;/button&gt;');
+		// add some content to $modalBody;
+		$modalBody.html('&lt;h6&gt;Hello World&lt;/h6&gt;&lt;p&gt;"One day you will wake up and there won''t be any more time to do the things you''ve always wanted. Do it now.” -Paulo Coelho&lt;p&gt;');
+		// finish modalObj
+		modalObj.modalContent=[$modalBody,$modalFooter];
+		ALBA.ModalBuilder.buildModal(modalObj);
+	}
+});
+&lt;/script&gt;
+				</pre>
+			</div>
+		</div>
+	</div>
+</section>
+
+<section id="options">
+	<div class="container">
+		<h2>Options</h2>
+		<div class="row">
+			<div class="col-xs-12">
+				<ul class="nav nav-tabs">
+					<li class="active"><a href="#bm" data-toggle="tab">buildModal Method</a></li>
+					<li><a href="#bmFormEl" data-toggle="tab">buildModalFormElements Method</a></li>
+					<!-- <li><a href="callbacks" data-toggle="tab">Callbacks</a></li> -->
+				</ul>
+
+				<div class="tab-content">
+					<div class="tab-pane fade in active" role="tabpanel" id="bm">
+						<p class="bg-info text-info">The method accepts an object with the following keys.</p>
+						<table class="table table-striped">
+							<thead>
+							<tr>
+								<th>Key [<span class="text-danger">required</span>]</th>
+								<th>Type</th>
+								<th>Default Value</th>
+								<th>Description</th>
+							</tr>
+							</thead>
+							<tbody>
+							<tr>
+								<td><span class="text-danger">modalObj</span></td>
+								<td><code>object</code></td>
+								<td><var>{}</var></td>
+								<td>Object that contains modalTitle(string) and modalContent(array)</td>
+							</tr>
+							<tr>
+								<td><span class="text-danger">modalObj.modalTitle</span></td>
+								<td><code>string</code></td>
+								<td><var>''</var></td>
+								<td>Modal title as a string.</td>
+							</tr>
+							<tr>
+								<td><span class="text-danger">modalObj.modalContent</span></td>
+								<td><code>array</code></td>
+								<td><var>[]</var></td>
+								<td>Array of DOM elements that we want to insert into modal.</td>
+							</tr>
+							</tbody>
+						</table>
+					</div>
+
+					<div class="tab-pane fade" role="tabpanel" id="bmFormEl">
+						<p class="bg-info text-info">The method accepts an object with the following keys.</p>
+						<table class="table table-striped">
+							<thead>
+							<tr>
+								<th>Key [<span class="text-danger">required</span>]</th>
+								<th>Type</th>
+								<th>Default Value</th>
+								<th>Description</th>
+							</tr>
+							</thead>
+							<tbody>
+							<tr>
+								<td><span class="text-danger">obj</span></td>
+								<td><code>object</code></td>
+								<td><var>{}</var></td>
+								<td>This is the form element object that contains all of the keys below.</td>
+							</tr>
+							<tr>
+								<td>obj.inputType</td>
+								<td><code>string</code></td>
+								<td><var>'text'</var></td>
+								<td>Type of input for form. Only supports <var>['text','checkbox','radio','hidden','textarea','select']</var> at this time.</td>
+							</tr>
+							<tr>
+								<td>obj.elAttr</td>
+								<td><code>object</code></td>
+								<td><var>{}</var></td>
+								<td>Form input attributes as an object full of key value pairs. <code>{id:'firstName',name:'firstName'}</code></td>
+							</tr>
+							<tr>
+								<td>obj.elClass</td>
+								<td><code>string</code></td>
+								<td><var>''</var></td>
+								<td>Class to be applied to form input element.</td>
+							</tr>
+							<tr>
+								<td>obj.defaultVal</td>
+								<td><code>string</code></td>
+								<td><var>''</var></td>
+								<td>Default value for form input element.</td>
+							</tr>
+							<tr>
+								<td>obj.label</td>
+								<td><code>object</code></td>
+								<td><var>{}</var></td>
+								<td>Label object contains the following keys <code>['id','class','html']</code>.</td>
+							</tr>
+							<tr>
+								<td>obj.label.id</td>
+								<td><code>string</code></td>
+								<td><var>''</var></td>
+								<td>Label object contains the following keys <code>['id','class','html']</code>.</td>
+							</tr>
+							<tr>
+								<td>obj.label.class</td>
+								<td><code>string</code></td>
+								<td><var>'control-label'</var></td>
+								<td>Class that should be applied to label if inputType is not 'checkbox','radio', or 'hidden'.</td>
+							</tr>
+							<tr>
+								<td>obj.label.html</td>
+								<td><code>string</code></td>
+								<td><var>''</var></td>
+								<td>Label content is generally just text, but you can use HTML within label to markup further.</td>
+							</tr>
+							<tr>
+								<td>obj.hasFeedback</td>
+								<td><code>boolean</code></td>
+								<td><var>false</var></td>
+								<td>Will bind 'has-feedback' class to <code>&lt;div class="form-group"&gt;&lt;/div&gt;</code> container.</td>
+							</tr>
+							<tr>
+								<td>obj.optionArgs</td>
+								<td><code>array</code></td>
+								<td><var>[]</var></td>
+								<td>Select options as a straight array or as an array of objects. If array of objects, the object key is the option value and the object value is the text.</td>
+							</tr>
+							<tr>
+								<td>obj.optionDefault</td>
+								<td><code>string</code></td>
+								<td><var>''</var></td>
+								<td>Default select option.</td>
+							</tr>
+							<tr>
+								<td>obj.inputGroup</td>
+								<td><code>object</code></td>
+								<td>{}</td>
+								<td>Allows for prepending/appending elements to form input element. Add html as a string to obj.inputGroup.prepend or obj.inputGroup.append to prepend or append the html to the form input element.</td>
+							</tr>
+							<tr>
+								<td>obj.isChecked</td>
+								<td><code>boolean</code></td>
+								<td><var>false</var></td>
+								<td>If inputType is 'checkbox' or 'radio', this boolean controls if the element is selected on initial build.</td>
+							</tr>
+							<tr>
+								<td>obj.onEvent</td>
+								<td><code>object</code></td>
+								<td><var>{}</var></td>
+								<td>Binds an event to input element. Requires event(s) <code>obj.onEvent.events</code> as a string and the function name <code>obj.onEvent.eventhandler</code>. See more information below</td>
+							</tr>
+							<tr>
+								<td><span class="text-danger">obj.onEvent.events</span></td>
+								<td><code>string</code></td>
+								<td></td>
+								<td>Required only if obj.onEvent is passed in. Event or comma separated list of events ['click','change','blur',etc] you wish to bind.</td>
+							</tr>
+							<tr>
+								<td><span class="text-danger">obj.onEvent.eventhandler</span></td>
+								<td><code>string</code></td>
+								<td></td>
+								<td>Required only if obj.onEvent is passed in. Function name that will be bound to the event. The function must be accessible.</td>
+							</tr>
+							</tbody>
+						</table>
+					</div>
+
+				</div> <!-- end of tab content -->
+			</div>
+		</div>
+	</div>
+</section>
+
+<section id="example">
+	<div class="container">
+		<h2>Examples</h2>
+		<div class="row">
+			<div class="col-xs-12">
+				<div class="panel panel-default">
+					<div class="panel-heading">
+						<h3 class="panel-title">Basic Example</h3>
+					</div>
+					<div class="panel-body">
+						<p>This example is straight forward implementation without any form elements.</p>
+						<p><a href="#" class="btn btn-default basic-modal">Open Basic Modal</a></p>
+						<pre class="pre-show prettyprint linenums">
+$('.basic-modal').on('click', function(ev) {
+	ev.preventDefault();
+	// we need obj.modalTitle and an obj.modalContent [an array] to build this properly
+	var modalObj = {},
+		$modalBody=$('&lt;div&gt;&lt;/div&gt;').addClass('modal-body'),
+		$modalFooter=$('&lt;div&gt;&lt;/div&gt;').addClass('modal-footer').html('&lt;button type="button" class="btn btn-link" data-dismiss="modal"&gt;&lt;i class="fa fa-times"&gt;&lt;/i&gt; Close&lt;/button&gt;');
+	modalObj.modalTitle='Hello Modal';
+	// add some content to $modalBody;
+	$modalBody.html('&lt;h6&gt;Hello World&lt;/h6&gt;&lt;p&gt;"One day you will wake up and there won\'t be any more time to do the things you\'ve always wanted. Do it now.” -Paulo Coelho&lt;p&gt;');
+	// finish modalObj
+	modalObj.modalContent=[$modalBody,$modalFooter];
+	ALBA.ModalBuilder.buildModal(modalObj);
+});
+						</pre>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-xs-12">
+				<div class="panel panel-default">
+					<div class="panel-heading">
+						<h3 class="panel-title">Form Example</h3>
+					</div>
+					<div class="panel-body">
+						<p>This example includes form elements.</p>
+						<p><a href="#" class="btn btn-default form-modal">Open Form Modal</a></p>
+						<pre class="pre-show prettyprint linenums">
+$('.form-modal').on('click', function(ev) {
+	ev.preventDefault();
+	// we need obj.modalTitle and an obj.modalContent [an array] to build this properly
+	var modalObj={},
+		$modalBody=$('&lt;div&gt;&lt;/div&gt;').addClass('modal-body clearfix'),
+		$modalForm=$('&lt;form&gt;&lt;/form&gt;').attr({method:'post',action:'/sendEmail',id:'contactForm',role:'form',autofocus:'full-name'}),
+		$modalFooter=$('&lt;div&gt;&lt;/div&gt;').addClass('modal-footer').html(
+			'&lt;input type="hidden" name="subject" value="My Form Submission"/&gt;' +
+			'&lt;button type="button" class="btn btn-link" data-dismiss="modal"&gt;&lt;i class="glyphicon glyphicon-remove"&gt;&lt;/i&gt; Close&lt;/button&gt;'
+		),
+		$modalSubmit=$('&lt;button&gt;&lt;/button&gt;').attr({type:'submit',form:'contactForm'}).addClass('btn btn-primary').on('click', function(ev) {
+			ev.preventDefault();
+			$modalForm.submit();
+			return false;
+		}).html('&lt;i class="glyphicon glyphicon-send"&gt;&lt;/i&gt; Send');
+	modalObj.modalTitle='My Form';
+	$modalFooter.prepend($modalSubmit);
+	$modalBody.append(ALBA.ModalBuilder.buildModalFormElements({elAttr:{id:'full-name',name:'full-name',required:true,placeholder:'Your Full Name'},label:{id:'full-name',html:'Full Name:'}}));
+	$modalBody.append(ALBA.ModalBuilder.buildModalFormElements({inputType:'email',elAttr:{id:'from-email',name:'from-email',required:true,placeholder:'Your Valid Email'},label:{id:'from-email',html:'Email Address:'}}));
+	$modalBody.append(ALBA.ModalBuilder.buildModalFormElements({inputType:'textarea',elAttr:{id:'message-text',name:'message-text',required:false,placeholder:'Your Message'},label:{id:'message-text',html:'Message:'}}));
+	$modalForm.append($modalBody).append($modalFooter);
+	modalObj.modalContent=[$modalForm];
+	ALBA.ModalBuilder.buildModal(modalObj);
+});
+						</pre>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-xs-12">
+				<div class="panel panel-default">
+					<div class="panel-heading">
+						<h3 class="panel-title">Another Form Example</h3>
+					</div>
+					<div class="panel-body">
+						<p>This example includes form elements with onEvent.</p>
+						<p><a href="#" class="btn btn-default form-event-modal">Open Form Modal</a></p>
+						<pre class="pre-show prettyprint linenums">
+// helper function
+function firealert() {
+	var $tmp=$('#tmpModal'),
+		$educationLevel=$(':input[name="education-level"] option:selected').val();
+	if ($educationLevel!=="None") {
+		if(confirm("You have selected " + $educationLevel + ". Is this correct?")) {
+			$(':input[name="education-level"] option:selected').parents('.form-group').addClass('has-success');
+		}
+		else {
+			$(':input[name="education-level"]').val('None');
+		}
+	}
+}
+$('.form-event-modal').on('click', function(ev) {
+	ev.preventDefault();
+	// we need obj.modalTitle and an obj.modalContent [an array] to build this properly
+	var modalObj={},
+		$modalBody=$('&lt;div&gt;&lt;/div&gt;').addClass('modal-body clearfix'),
+		$modalForm=$('&lt;form&gt;&lt;/form&gt;').attr({method:'post',action:'/sendEmail',id:'contactForm',role:'form',autofocus:'full-name'}),
+		$modalFooter=$('&lt;div&gt;&lt;/div&gt;').addClass('modal-footer').html(
+			'&lt;input type="hidden" name="subject" value="My Form Submission"/&gt;' +
+			'&lt;button type="button" class="btn btn-link" data-dismiss="modal"&gt;&lt;i class="glyphicon glyphicon-remove"&gt;&lt;/i&gt; Close&lt;/button&gt;'
+		),
+		$modalSubmit=$('&lt;button&gt;&lt;/button&gt;').attr({type:'submit',form:'contactForm'}).addClass('btn btn-primary').on('click', function(ev) {
+			ev.preventDefault();
+			$modalForm.submit(sendModalForm());
+			return false;
+		}).html('&lt;i class="glyphicon glyphicon-send"&gt;&lt;/i&gt; Send');
+	modalObj.modalTitle='My More Advanced Form';
+	$modalFooter.prepend($modalSubmit);
+	$modalBody.append(ALBA.ModalBuilder.buildModalFormElements({elAttr:{id:'full-name',name:'full-name',required:true,placeholder:'Your Full Name'},label:{id:'full-name',html:'Full Name:'}}));
+	$modalBody.append(ALBA.ModalBuilder.buildModalFormElements({inputType:'email',elAttr:{id:'from-email',name:'from-email',required:true,placeholder:'Your Valid Email'},label:{id:'from-email',html:'Email Address:'}}));
+	$modalBody.append(ALBA.ModalBuilder.buildModalFormElements({inputType:'select',elAttr:{id:'education-level',name:'education-level'},label:{id:'education-level',html:'Level of Educaiton:'},optionArgs:['None','High School','Some College','Associates','Bachelors','Graduate','Doctorate'],optionDefault:'None',onEvent:{events:'change',eventhandler:firealert}}));
+	$modalForm.append($modalBody).append($modalFooter);
+	modalObj.modalContent=[$modalForm];
+	ALBA.ModalBuilder.buildModal(modalObj);
+});
+						</pre>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</section>
+
+<hr>
+<footer>
+	<div class="container">
+		<div class="row">
+			<div class="col-xs-12 col-sm-8">
+				<div class="social-nav center-block">
+					<a href="https://www.facebook.com/albawebstudio" class="facebook" target="_blank"><span class="fa fa-facebook"></span></a>
+					<a href="https://twitter.com/albawebstudio" class="twitter" target="_blank"><span class="fa fa-twitter"></span></a>
+					<a href="https://www.linkedin.com/company/andrew-alba-web-studio" class="linkedin" target="_blank"><span class="fa fa-linkedin"></span></a>
+					<a href="http://albawebstudio.tumblr.com/" class="tumblr" target="_blank"><span class="fa fa-tumblr"></span></a>
+				</div>
+			</div>
+			<div class="col-xs-12 col-sm-4">
+				<p class="pull-right">&copy; <a href="http://albawebstudio.com/" title="Alba Web Studio" target="_blank">Alba Web Studio</a> 2002-2016</p>
+			</div>
+		</div>
+	</div>
+</footer>
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.6/js/bootstrap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/smooth-scroll/7.1.1/js/smooth-scroll.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prettify/r298/prettify.min.js"></script>
+<script src="assets/js/ModalBuilder.js"></script>
+
+<script type="text/javascript">
+	// helper function
+	function ajaxError(errors) {
+		var focusEl;
+		for (var i= 0; i < errors.length; i++) {
+			if( $(':input[name="' + errors[i] + '"]').length ){
+				$(':input[name="' + errors[i] + '"]').parents('.form-group').addClass('has-error')
+				if( typeof focusEl === 'undefined' ) {
+					focusEl = errors[i];
+				}
+			}
+		}
+		if( typeof focusEl !== 'undefined' ){
+			$(':input[name="' + focusEl + '"]').focus();
+		}
+	}
+	function firealert() {
+		var $tmp=$('#tmpModal'),
+			$educationLevel=$(':input[name="education-level"] option:selected').val();
+		if ($educationLevel!=="None") {
+			if(confirm("You have selected " + $educationLevel + ". Is this correct?")) {
+				$(':input[name="education-level"] option:selected').parents('.form-group').addClass('has-success');
+			}
+			else {
+				$(':input[name="education-level"]').val('None');
+			}
+		}
+	}
+	function sendModalForm() {
+		var $tmp=$('#tmpModal'),
+			errors=[],
+			tomorrow = new Date(),
+			tomorrowStr,
+			options={ weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+		if($(':input[name="full-name"]',$tmp).val() === '') {
+			errors.push('full-name');
+		}
+		if($(':input[name="from-email"]',$tmp).val() === '') {
+			errors.push('from-email');
+		}
+		if($(':input[name="message-text"]',$tmp).val() === '') {
+			errors.push('message-text');
+		}
+		if(errors.length) {
+			console.log(errors);
+			ajaxError(errors);
+		}
+		else {
+			tomorrow.setDate(tomorrow.getDate() + 1);
+			tomorrowStr=tomorrow.toLocaleDateString('en-US',options);
+			// clear form
+			$('.modal-body',$tmp).empty();
+			$('.modal-body',$tmp).html('<h4 class="text-success">Success</h4><p>If you’re reading this, Doc Brown was unable to make lightning strike the clock tower, and I’m stuck in 1985. I won’t be able to respond to emails or voicemail until 9ish on ' + tomorrowStr + ', or until email is invented -- whatever comes first.</p>');
+		}
+	}
+
+	$(function(){
+		if (typeof smoothScroll === 'object') {
+			smoothScroll.init({updateURL: false});
+		}
+		if (typeof prettyPrint === 'function') {
+			window.prettyPrint && prettyPrint();
+		}
+		if( typeof ALBA != 'undefined' && typeof ALBA.ModalBuilder != 'undefined' ) {
+			// Example #1
+			$('.basic-modal').on('click', function(ev) {
+				ev.preventDefault();
+				// we need obj.modalTitle and an obj.modalContent [an array] to build this properly
+				var modalObj = {},
+					$modalBody=$('<div></div>').addClass('modal-body'),
+					$modalFooter=$('<div></div>').addClass('modal-footer').html('<button type="button" class="btn btn-link" data-dismiss="modal"><i class="fa fa-times"></i> Close</button>');
+				modalObj.modalTitle='Hello Modal';
+				// add some content to $modalBody;
+				$modalBody.html('<h6>Hello World</h6><p>"One day you will wake up and there won\'t be any more time to do the things you\'ve always wanted. Do it now.” -Paulo Coelho<p>');
+				// finish modalObj
+				modalObj.modalContent=[$modalBody,$modalFooter];
+				ALBA.ModalBuilder.buildModal(modalObj);
+			});
+			// Example #2 form-modal
+			$('.form-modal').on('click', function(ev) {
+				ev.preventDefault();
+				// we need obj.modalTitle and an obj.modalContent [an array] to build this properly
+				var modalObj={},
+						$modalBody=$('<div></div>').addClass('modal-body clearfix'),
+						$modalForm=$('<form></form>').attr({method:'post',action:'/sendEmail',id:'contactForm',role:'form',autofocus:'full-name'}),
+						$modalFooter=$('<div></div>').addClass('modal-footer').html(
+								'<input type="hidden" name="subject" value="My Form Submission"/>' +
+								'<button type="button" class="btn btn-link" data-dismiss="modal"><i class="glyphicon glyphicon-remove"></i> Close</button>'
+						),
+						$modalSubmit=$('<button></button>').attr({type:'submit',form:'contactForm'}).addClass('btn btn-primary').on('click', function(ev) {
+							ev.preventDefault();
+							$modalForm.submit(sendModalForm());
+							return false;
+						}).html('<i class="glyphicon glyphicon-send"></i> Send');
+				modalObj.modalTitle='My Form';
+				$modalFooter.prepend($modalSubmit);
+				$modalBody.append(ALBA.ModalBuilder.buildModalFormElements({elAttr:{id:'full-name',name:'full-name',required:true,placeholder:'Your Full Name'},label:{id:'full-name',html:'Full Name:'}}));
+				$modalBody.append(ALBA.ModalBuilder.buildModalFormElements({inputType:'email',elAttr:{id:'from-email',name:'from-email',required:true,placeholder:'Your Valid Email'},label:{id:'from-email',html:'Email Address:'}}));
+				$modalBody.append(ALBA.ModalBuilder.buildModalFormElements({inputType:'textarea',elAttr:{id:'message-text',name:'message-text',required:false,placeholder:'Your Message'},label:{id:'message-text',html:'Message:'}}));
+				$modalForm.append($modalBody).append($modalFooter);
+				modalObj.modalContent=[$modalForm];
+				ALBA.ModalBuilder.buildModal(modalObj);
+			});
+
+			// Example #3 form-modal
+			$('.form-event-modal').on('click', function(ev) {
+				ev.preventDefault();
+				// we need obj.modalTitle and an obj.modalContent [an array] to build this properly
+				var modalObj={},
+						$modalBody=$('<div></div>').addClass('modal-body clearfix'),
+						$modalForm=$('<form></form>').attr({method:'post',action:'/sendEmail',id:'contactForm',role:'form',autofocus:'full-name'}),
+						$modalFooter=$('<div></div>').addClass('modal-footer').html(
+								'<input type="hidden" name="subject" value="My Form Submission"/>' +
+								'<button type="button" class="btn btn-link" data-dismiss="modal"><i class="glyphicon glyphicon-remove"></i> Close</button>'
+						),
+						$modalSubmit=$('<button></button>').attr({type:'submit',form:'contactForm'}).addClass('btn btn-primary').on('click', function(ev) {
+							ev.preventDefault();
+							$modalForm.submit(sendModalForm());
+							return false;
+						}).html('<i class="glyphicon glyphicon-send"></i> Send');
+				modalObj.modalTitle='My More Advanced Form';
+				$modalFooter.prepend($modalSubmit);
+				$modalBody.append(ALBA.ModalBuilder.buildModalFormElements({elAttr:{id:'full-name',name:'full-name',required:true,placeholder:'Your Full Name'},label:{id:'full-name',html:'Full Name:'}}));
+				$modalBody.append(ALBA.ModalBuilder.buildModalFormElements({inputType:'email',elAttr:{id:'from-email',name:'from-email',required:true,placeholder:'Your Valid Email'},label:{id:'from-email',html:'Email Address:'}}));
+				$modalBody.append(ALBA.ModalBuilder.buildModalFormElements({inputType:'select',elAttr:{id:'education-level',name:'education-level'},label:{id:'education-level',html:'Level of Educaiton:'},optionArgs:['None','High School','Some College','Associates','Bachelors','Graduate','Doctorate'],optionDefault:'None',onEvent:{events:'change',eventhandler:firealert}}));
+				$modalForm.append($modalBody).append($modalFooter);
+				modalObj.modalContent=[$modalForm];
+				ALBA.ModalBuilder.buildModal(modalObj);
+			});
+		}
+	});
+	var _gaq = _gaq || [];
+	_gaq.push(['_setAccount', 'UA-1919768-29']);
+	_gaq.push(['_trackPageview', '/showMessage/download']);
+
+	(function() {
+		var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+		ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+		var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+	})();
+</script>
+
+</body>
+</html>
