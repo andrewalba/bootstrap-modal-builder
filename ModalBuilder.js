@@ -16,6 +16,9 @@ ALBA.ModalBuilder = function() {
 	 * @returns {boolean}
 	 */
 	function bm(obj) {
+		var obj=obj || {},
+			title=obj.modalTitle || '',
+			content=obj.modalContent || [];
 		// we need obj.modalTitle and an obj.modalContent [an array] to build this properly
 		var $modal,
 			$modalDialog,
@@ -28,11 +31,11 @@ ALBA.ModalBuilder = function() {
 			$modalContent=$('<div></div>').addClass('modal-content');
 			$modalHeader=$('<div></div>').addClass('modal-header').html(
 				'<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>' +
-				'<h4 class="modal-title">' + obj.modalTitle + '</h4>'
+				'<h4 class="modal-title">' + title + '</h4>'
 			);
 			$modalContent.append($modalHeader);
-			for(var i=0; i<obj.modalContent.length; i++) {
-				$modalContent.append(obj.modalContent[i]);
+			for(var i=0; i<content.length; i++) {
+				$modalContent.append(content[i]);
 			}
 			$('body').append($modal.append($modalDialog.append($modalContent)));
 		}
@@ -65,15 +68,19 @@ ALBA.ModalBuilder = function() {
 		var obj=obj || {},
 			inputType=obj.inputType || 'text',
 			elAttr=obj.elAttr || {},
-			elClass=obj.elClass || '',
+			elClass=obj.elClass || 'form-control',
 			defaultVal=obj.defaultVal || '',
 			label=obj.label || {},
+			labelId=obj.label.id || '',
+			labelClass=obj.label.class || 'control-label',
+			labelHtml=obj.label.html || '',
 			hasFeedback=obj.hasFeedback || false,
 			onEvent=obj.onEvent || {},
 			optionArgs=obj.optionArgs || [],
 			optionDefault=obj.optionDefault || '',
 			inputGroup=obj.inputGroup || {},
 			isChecked=obj.isChecked || false,
+			formGroupHide=obj.hideFormGroup || false,
 			$formGroup=$('<div></div>'),
 			$label=$('<label></label>'),
 			$inputGroup,
@@ -85,6 +92,9 @@ ALBA.ModalBuilder = function() {
 			if (inputType !== 'hidden') {
 				$formGroup.addClass(inputType);
 			}
+		}
+		if (formGroupHide) {
+			$formGroup.addClass('hide');
 		}
 		if (hasFeedback) {
 			$formGroup.addClass('has-feedback');
@@ -129,9 +139,9 @@ ALBA.ModalBuilder = function() {
 			$formControl.on(onEvent.events, onEvent.eventhandler);
 		}
 		if (!$.isEmptyObject(label)) {
-			$label.attr({for:label.id}).html(label.html);
-			if (inputType !== 'checkbox' && inputType !== 'radio') {
-				$label.addClass('control-label');
+			$label.attr({for:labelId}).html(labelHtml);
+			if (inputType !== 'checkbox' && inputType !== 'radio' && inputType !== 'hidden') {
+				$label.addClass(labelClass);
 			}
 		}
 		if (!$.isEmptyObject(inputGroup)) {
